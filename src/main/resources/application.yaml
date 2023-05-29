@@ -1,0 +1,31 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5434/assignment_local}
+    username: ${DATABASE_USER:postgres}
+    password: ${DATABASE_SEC:docker}
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5434/assignment_local}
+    user: ${DATABASE_USER:postgres}
+    password: ${DATABASE_SEC:docker}
+    driver-class-name: org.postgresql.Driver
+    change-log: classpath:liquibase/changelog-master.yml
+    enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show_sql: true
+        format_sql: true
+    open-in-view: false
+
+
+springdoc:
+  swagger-ui.path: /api
+  paths-to-exclude: /internal/**
+  swagger-ui.tryItOutEnabled: true

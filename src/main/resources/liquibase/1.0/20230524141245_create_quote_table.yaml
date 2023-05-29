@@ -1,0 +1,62 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_quote_table
+      author: Ganira_Safarli
+
+      changes:
+        - createTable:
+            tableName: quote
+            columns:
+              - column:
+                  name: ID
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: quote
+                  type: varchar(5000)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: author
+                  type: varchar(500)
+                  constraints:
+                    nullable: false
+#              - column:
+#                  name: popularity
+#                  type: decimal(18, 10)
+#                  constraints:
+#                    nullable: false
+              - column:
+                  name: category
+                  type: varchar(500)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: create_quote_tag_table
+      author: Ganira_Safarli
+
+      changes:
+        - createTable:
+            tableName: quote_tags
+            columns:
+              - column:
+                  name: quote_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: tag
+                  type: varchar(300)
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: quote_tags
+            baseColumnNames: quote_id
+            referencedTableName: quote
+            referencedColumnNames: id
+            constraintName: fk_quote_tags_quote_id
